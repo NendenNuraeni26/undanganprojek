@@ -1,0 +1,316 @@
+/* =========================================================
+   STYLE UNDANGAN PASTEL FLORAL
+   Ganti warna di :root, foto pada background-image, dan ukuran
+   layar HP melalui --phone-width.
+   ========================================================= */
+:root {
+    --pink: #f6c8d3;
+    --pink-deep: #be596c;
+    --pink-dark: #a94d60;
+    --blue: #c5d9ee;
+    --cream: #fff4e8;
+    --white: #fffaf8;
+    --phone-width: 430px;
+    --shadow: 0 12px 28px rgba(133, 61, 77, .24);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+    margin: 0;
+    color: var(--pink-deep);
+    background: #e5d8dd url('aset/gambar/home.png') center/cover fixed;
+    font-family: 'DM Sans', sans-serif;
+}
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.invite {
+    width: min(100%, var(--phone-width));
+    margin: auto;
+    overflow: hidden;
+    background: var(--pink);
+    box-shadow: 0 0 50px rgba(71, 46, 54, .22);
+}
+.page {
+    min-height: 100svh;
+    padding: 132px 62px 122px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    isolation: isolate;
+    background-color: var(--pink);
+    background-image: url('aset/gambar/home.png');
+    background-position: center;
+    background-size: cover;
+}
+.page::before,
+.page::after {
+    display: none;
+}
+.page-cover::before,
+.page-cover::after {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 0;
+    left: 50%;
+    width: 100%;
+    height: 190px;
+    pointer-events: none;
+    background: url('aset/gambar/bunga2.png') center top/112% auto no-repeat;
+    mix-blend-mode: multiply;
+    transform: translateX(-50%);
+}
+.page-cover::before {
+    top: -80px;
+    height: 220px;
+    background-size: 120% auto;
+    background-position: center 68%;
+}
+.page-cover::after {
+    bottom: -52px;
+    background-image: url('aset/gambar/bunga1.png');
+    background-position: center bottom;
+    transform: translateX(-50%) rotate(180deg);
+}
+.page-cover.is-visible::before { animation: coverFlowerTop 3.2s cubic-bezier(.2,.8,.2,1) both; }
+.page-cover.is-visible::after { animation: coverFlowerBottom 3.2s cubic-bezier(.2,.8,.2,1) both; }
+body.js-ready .page-cover .cover-content { opacity: 0; transform: translateY(18px) scale(.97); }
+body.js-ready .page-cover.is-visible .cover-content { animation: coverContentReveal 1.15s 1.55s cubic-bezier(.2,.8,.2,1) both; }
+.page > * { position: relative; z-index: 1; }
+body.js-ready .reveal-item { opacity: 0; transform: translate(var(--shift-x, 0px), 22px); transition: opacity 1.05s ease, transform 1.05s cubic-bezier(.2,.8,.2,1); transition-delay: var(--reveal-delay, 0ms); }
+body.js-ready .page.is-visible .reveal-item { opacity: 1; transform: translate(var(--shift-x, 0px), 0); }
+body.js-ready .page.page-entering .reveal-item { opacity: 0; transform: translate(var(--shift-x, 0px), 34px); transition-delay: 120ms; }
+body.js-ready .page.page-leaving .reveal-item { opacity: 0; transform: translate(var(--shift-x, 0px), -28px); transition-delay: 0ms; }
+.page.page-entering { opacity: .72; transform: translateY(14px); transition: opacity 1.05s ease, transform 1.05s cubic-bezier(.2,.8,.2,1); }
+.page.page-leaving { opacity: .2; transform: translateY(-14px); transition: opacity .8s ease, transform .8s cubic-bezier(.2,.8,.2,1); }
+.page.page-entering.is-visible { opacity: 1; transform: translateY(0); }
+.page.is-visible .illustration { animation: illustrationFade 1.6s ease both; }
+.floral-bridge { animation: floralSway 8s ease-in-out infinite; transform-origin: center bottom; }
+.page:not(.page-cover)::before {
+    content: '';
+    display: block;
+    position: absolute;
+    z-index: 0;
+    top: 12%;
+    left: 50%;
+    width: 310px;
+    height: 260px;
+    pointer-events: none;
+    opacity: 0;
+    transform: translate(-50%, 20px) scale(.35);
+    background:
+        radial-gradient(ellipse at 50% 45%, rgba(255,255,255,.42) 0 18%, transparent 58%),
+        radial-gradient(circle at 24% 32%, rgba(190,89,108,.13), transparent 34%),
+        radial-gradient(circle at 78% 68%, rgba(197,217,238,.24), transparent 38%);
+    filter: blur(1px);
+}
+.page:not(.page-cover).is-visible::before { animation: lightBloom 2.2s .15s cubic-bezier(.2,.8,.2,1) both; }
+.page-greeting.is-visible .couple-illustration,
+.page-save.is-visible .wedding-illustration { animation: risePortrait 1.8s .35s cubic-bezier(.2,.8,.2,1) both; }
+.page-couple.is-visible .person-block { animation: portraitRise 1.35s cubic-bezier(.2,.8,.2,1) both; }
+.page-couple.is-visible .person-block:nth-of-type(2) { animation-delay: .35s; }
+.page-events.is-visible .event-item { animation: eventRise 1.25s cubic-bezier(.2,.8,.2,1) both; }
+.page-events.is-visible .event-item:nth-of-type(2) { animation-delay: .28s; }
+.page-gallery.is-visible .gallery-grid { animation: collageReveal 1.5s .25s cubic-bezier(.2,.8,.2,1) both; }
+.page-rsvp.is-visible form { animation: formLift 1.4s .55s cubic-bezier(.2,.8,.2,1) both, formBreath 5s 2.2s ease-in-out infinite; }
+.page-gift.is-visible .gift-card { animation: giftFloat 1.2s cubic-bezier(.2,.8,.2,1) both; }
+.page-gift.is-visible .gift-card:nth-of-type(2) { animation-delay: .25s; }
+.hero-button.is-pressed, .side-nav button.is-pressed, .music.is-pressed { transform: scale(.95); }
+.hero-button { position: relative; overflow: hidden; }
+.hero-button::after { content: ''; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.28) 50%, transparent 65%); transform: translateX(-120%); }
+.hero-button:hover::after, .hero-button:focus-visible::after { animation: buttonShine .8s ease; }
+.gallery-grid img { transition: transform .25s ease, box-shadow .25s ease; }
+.gallery-grid img:hover { box-shadow: 0 12px 22px rgba(133,61,77,.28); }
+@keyframes illustrationFade { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes floralSway { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-5px) rotate(.7deg); } }
+@keyframes buttonShine { to { transform: translateX(120%); } }
+@keyframes lightBloom { 0% { opacity: 0; transform: translate(-50%, 20px) scale(.72); } 45% { opacity: .45; } 100% { opacity: .2; transform: translate(-50%, 0) scale(1); } }
+@keyframes risePortrait { 0% { opacity: 0; transform: translate(var(--shift-x, 0px), 42px) scale(.92); filter: saturate(.5) blur(3px); } 65% { opacity: 1; } 100% { opacity: 1; transform: translate(var(--shift-x, 0px), 0) scale(1); filter: saturate(1) blur(0); } }
+@keyframes portraitRise { 0% { opacity: 0; transform: translateY(34px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes eventRise { 0% { opacity: 0; transform: translateX(-28px); } 100% { opacity: 1; transform: translateX(0); } }
+@keyframes collageReveal { 0% { opacity: 0; transform: scale(.9) rotate(-1.5deg); filter: blur(3px); } 100% { opacity: 1; transform: scale(1) rotate(0); filter: blur(0); } }
+@keyframes formBreath { 0%, 100% { filter: drop-shadow(0 0 0 rgba(255,255,255,0)); } 50% { filter: drop-shadow(0 8px 15px rgba(190,89,108,.12)); } }
+@keyframes giftFloat { 0% { opacity: 0; transform: translateY(28px) rotate(1deg); } 70% { transform: translateY(-3px) rotate(-.3deg); } 100% { opacity: 1; transform: translateY(0) rotate(0); } }
+@keyframes formLift { 0% { opacity: .2; transform: translateY(24px); } 100% { opacity: 1; transform: translateY(0); } }
+@keyframes rsvpPulse { 0%, 100% { box-shadow: var(--shadow); } 50% { box-shadow: 0 0 0 7px rgba(255,255,255,.12), 0 14px 30px rgba(133,61,77,.32); } }
+@keyframes coverFlowerTop {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    32% { transform: translateX(-50%) translateY(145px) scale(1.04); }
+    52% { transform: translateX(-50%) translateY(145px) scale(1.04); }
+}
+@keyframes coverFlowerBottom {
+    0%, 100% { transform: translateX(-50%) rotate(180deg) translateY(0); }
+    32% { transform: translateX(-50%) rotate(180deg) translateY(125px) scale(1.04); }
+    52% { transform: translateX(-50%) rotate(180deg) translateY(125px) scale(1.04); }
+}
+@keyframes coverContentReveal { 0% { opacity: 0; transform: translateY(18px) scale(.97); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+.floral-bridge {
+    position: relative;
+    z-index: 4;
+    height: 170px;
+    margin: -85px 0;
+    pointer-events: none;
+    background: url('aset/gambar/bunga1.png') center/115% auto no-repeat;
+    mix-blend-mode: multiply;
+}
+.small-title {
+    margin: 0 0 16px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.4px;
+    line-height: 1.5;
+    text-transform: uppercase;
+}
+h1, h2, p { margin-top: 0; }
+h1, h2 { color: var(--pink-deep); }
+h1 { font: 700 62px/1.02 'Playfair Display', serif; }
+h2 { font: 700 32px/1.12 'Playfair Display', serif; }
+.script-title {
+    margin-bottom: 18px;
+    font: 400 40px/1.12 'Pacifico', cursive;
+    color: var(--pink-dark);
+    text-shadow: 2px 2px 0 rgba(255, 249, 245, .8);
+}
+.lead { max-width: 430px; margin: 0 auto 24px; font-size: 16px; line-height: 1.55; }
+.strong { font-weight: 700; }
+.hero-button {
+    min-width: 235px;
+    border: 0;
+    border-radius: 999px;
+    padding: 15px 25px;
+    color: var(--white);
+    background: linear-gradient(135deg, #cf7080, #a9465a);
+    box-shadow: var(--shadow);
+    font-size: 17px;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform .2s ease, filter .2s ease;
+}
+.hero-button:hover, .hero-button:focus-visible { transform: translateY(-2px); filter: brightness(1.06); }
+.hero-button span { margin-right: 8px; font-size: 24px; vertical-align: -2px; }
+.map-button .map-icon { display: inline-block; width: 18px; height: 18px; margin: 0 12px 0 0; border: 3px solid currentColor; border-radius: 50% 50% 50% 0; font-size: 0; vertical-align: -3px; transform: rotate(-45deg); }
+.map-button .map-icon::after { content: ''; display: block; width: 5px; height: 5px; margin: 4px auto; border-radius: 50%; background: currentColor; }
+
+/* HALAMAN 1: COVER */
+.page-cover { justify-content: center; padding-top: 104px; padding-bottom: 104px; }
+.cover-content { width: 100%; }
+.page-cover h1 { margin-bottom: 18px; font-size: clamp(46px, 13vw, 62px); }
+.page-cover h1 span, .names span { color: var(--pink-dark); font-family: 'Pacifico', cursive; font-weight: 400; }
+.cover-date { margin-bottom: 28px; font-size: 17px; font-weight: 700; }
+
+/* HALAMAN 2: SAPAAN TAMU */
+.page-greeting h2 { margin-bottom: 18px; font-size: clamp(27px, 7vw, 32px); }
+.page-greeting { padding-top: 58px; padding-bottom: 56px; }
+.couple-illustration, .wedding-illustration {
+    width: 100%;
+    max-width: 370px;
+    height: 310px;
+    margin: 14px auto 30px;
+    background: url('aset/gambar/manusia.png') center/contain no-repeat;
+    border-radius: 0;
+    border: 0;
+    box-shadow: none;
+    mix-blend-mode: multiply;
+}
+
+/* Latar khusus sapaan memakai aset desain yang dikirim. */
+.page-greeting {
+    background-image: url('aset/gambar/home.png');
+    background-position: center;
+    background-size: cover;
+}
+
+/* HALAMAN 3: SAVE THE DATE */
+.page-save { padding-top: 80px; padding-bottom: 34px; }
+.save-subtitle { margin-bottom: 15px; font-size: 20px; font-weight: 700; }
+.wedding-illustration { height: 330px; margin-bottom: 20px; }
+/* POSISI GAMBAR MANUSIA HALAMAN 2-3: ubah --shift-x.
+   Nilai lebih besar = gambar bergerak ke kanan.
+   Nilai lebih kecil/negatif = gambar bergerak ke kiri. */
+.page.page-greeting .couple-illustration { --shift-x: 35px; height: 220px; margin-top: -8px; margin-bottom: 10px; }
+.page.page-save .wedding-illustration { --shift-x: 35px; height: 220px; margin-top: 4px; margin-bottom: 10px; }
+.page-save { padding-bottom: 82px; }
+.page-save + .floral-bridge { margin-top: -65px; }
+.names { margin: -16px 0 8px; font: 400 clamp(32px, 10vw, 44px)/1.2 'Pacifico', cursive; color: var(--pink-dark); }
+.save-date { margin: 0 0 9px; font-size: 20px; font-weight: 700; }
+.page-save > .lead { margin-bottom: 0; }
+
+/* HALAMAN 4: PROFIL MEMPELAI */
+.page-couple { padding-top: 76px; padding-bottom: 62px; }
+.page-couple > .lead { margin-bottom: 10px; font-size: 17px; font-weight: 700; line-height: 1.4; }
+.person-block { margin: 5px 0 9px; }
+.person-block img {
+    width: 132px;
+    height: 132px;
+    object-fit: cover;
+    border: 6px solid rgba(255, 250, 248, .9);
+    border-radius: 50%;
+    box-shadow: var(--shadow);
+}
+.person-block h2 { margin: 4px 0 4px; font-size: 25px; }
+.person-block p { margin-bottom: 0; font-size: 14px; line-height: 1.3; font-weight: 700; }
+
+/* HALAMAN 5: ACARA DAN MAPS */
+.page-events { padding-top: 110px; }
+.page-events > .lead { margin-bottom: 18px; }
+.event-item { width: 100%; padding: 13px 0; border-top: 2px solid rgba(190, 89, 108, .35); }
+.event-item h2 { margin-bottom: 8px; font-size: 34px; }
+.event-item p { margin-bottom: 8px; font-size: 18px; line-height: 1.45; }
+.map-button { margin-top: 20px; }
+
+/* HALAMAN 6: GALERI */
+.page-gallery { padding-left: 48px; padding-right: 48px; }
+.gallery-grid { width: 100%; display: grid; grid-template-columns: 1.08fr .92fr; grid-template-rows: repeat(3, 105px); gap: 11px; }
+.gallery-grid img { width: 100%; height: 100%; min-height: 0; object-fit: cover; border: 4px solid rgba(255, 250, 248, .85); border-radius: 22px 7px 22px 7px; box-shadow: 0 6px 14px rgba(133, 61, 77, .18); }
+.gallery-grid img:first-child { grid-column: span 2; }
+
+/* HALAMAN 7: RSVP */
+/* POSISI KONTEN HALAMAN 6-8: ubah left untuk menggeser seluruh isi ke kanan/kiri. */
+.page-gallery > *, .page-rsvp > *, .page-gift > * { left: 10px; }
+.page-rsvp { align-items: stretch; text-align: left; padding-top: 82px; padding-bottom: 142px; }
+.page-rsvp .small-title, .page-rsvp .script-title, .page-rsvp > .lead { text-align: center; align-self: center; }
+form { display: grid; gap: 10px; margin-top: 8px; }
+input, select, textarea { width: 100%; border: 2px solid rgba(190, 89, 108, .35); border-radius: 15px; padding: 12px; color: var(--pink-deep); background: rgba(255, 250, 248, .68); outline: 0; }
+input:focus, select:focus, textarea:focus { border-color: var(--pink-deep); box-shadow: 0 0 0 4px rgba(190, 89, 108, .12); transform: translateY(-2px); }
+textarea { min-height: 82px; resize: vertical; }
+.notice { margin-bottom: 12px; padding: 12px; border-radius: 12px; background: rgba(255, 250, 248, .65); font-size: 13px; }
+.page-rsvp .hero-button { justify-self: center; }
+.page-rsvp.is-visible form { animation: formLift 1.4s .55s cubic-bezier(.2,.8,.2,1) both, formBreath 5s 2.2s ease-in-out infinite; }
+.page-rsvp.is-visible form .hero-button { animation: rsvpPulse 2.8s 1.8s ease-in-out infinite; }
+.page-rsvp.is-visible .script-title { text-shadow: 2px 2px 0 rgba(255,249,245,.8), 0 0 18px rgba(255,255,255,.26); }
+
+/* HALAMAN HADIAH */
+.page-gift { padding-left: 34px; padding-right: 34px; }
+.gift-card { width: 100%; display: grid; grid-template-columns: 78px minmax(0, 1fr) auto; gap: 20px; align-items: center; margin: 14px 0; padding: 19px 17px; border-radius: 17px; text-align: left; background: rgba(255, 250, 248, .7); box-shadow: 0 5px 16px rgba(133, 61, 77, .13); }
+.gift-card strong { font: 700 22px 'Playfair Display', serif; }
+.gift-card span { padding-left: 3px; font-size: 13px; line-height: 1.4; }
+.gift-card small { font-size: 10px; font-weight: 700; }
+.gift-card button { border: 1px solid var(--pink-deep); border-radius: 999px; padding: 8px 10px; color: var(--pink-deep); background: transparent; cursor: pointer; font-size: 11px; font-weight: 700; }
+.copy-toast { position: fixed; z-index: 20; left: 50%; bottom: 28px; transform: translate(-50%, 18px); padding: 12px 18px; border-radius: 999px; color: var(--white); background: var(--pink-dark); box-shadow: var(--shadow); font-size: 13px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; }
+.copy-toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* NAVIGASI KIRI DAN MUSIK */
+.music { position: fixed; z-index: 10; top: 17px; right: max(17px, calc((100vw - var(--phone-width)) / 2 + 17px)); width: 42px; height: 42px; border: 2px solid var(--pink-deep); border-radius: 50%; color: var(--white); background: var(--pink-deep); cursor: pointer; box-shadow: var(--shadow); }
+.side-nav { position: fixed; z-index: 9; top: 50%; left: max(13px, calc((100vw - var(--phone-width)) / 2 + 13px)); display: flex; flex-direction: column; gap: 9px; transform: translateY(-50%); }
+.side-nav button { width: 44px; height: 44px; border: 3px solid var(--white); border-radius: 50%; color: var(--white); background: var(--pink-deep); box-shadow: 0 4px 10px rgba(133, 61, 77, .2); cursor: pointer; font-size: 20px; }
+.side-nav button:first-child { font-size: 22px; }
+.side-nav button:hover, .side-nav button:focus-visible { background: #d67987; transform: scale(1.07); }
+
+@media (max-width: 430px) {
+    .page { padding-left: 56px; padding-right: 56px; }
+    h1 { font-size: 52px; }
+    .script-title { font-size: 34px; }
+    .side-nav { left: 8px; }
+    .side-nav button { width: 39px; height: 39px; font-size: 17px; }
+    .music { right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
